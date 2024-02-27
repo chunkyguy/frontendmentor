@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&display=swap");
+
+:root {
+  /* BACKGROUNDS */
+  /* Very dark desaturated blue (main background)  */
+  --main-background: hsl(222, 26%, 31%);
+  /* - Very dark desaturated blue (toggle background, keypad background)  */
+  --keypad-background: hsl(223, 31%, 20%);
+  /* - Very dark desaturated blue (screen background)  */
+  --screen-background: hsl(224, 36%, 15%);
+
+  /* Keys */
+  --light-dark-blue: hsl(225, 21%, 49%); /* key background */
+  --dark-blue: hsl(224, 28%, 35%); /* key shadow */
+
+  --red: hsl(6, 63%, 50%); /* key background, toggle */
+  --dark-red: hsl(6, 70%, 34%); /* key shadow */
+
+  --light-grayish-orange: hsl(30, 25%, 89%); /* key background */
+  --grayish-orange: hsl(28, 16%, 65%); /* key shadow */
+
+  /* Text */
+  --very-dark-grayish-blue: hsl(221, 14%, 31%);
+  --white: hsl(0, 0%, 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 36px;
+}
+
+body {
+  background: var(--main-background);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+  background: var(--main-background);
+  color: var(--white);
+}
+
+.display {
+  width: 100%;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: var(--screen-background);
+  color: var(--white);
+  border-radius: 8px;
+}
+
+.output {
+  font-size: 64px;
+  padding: 16px;
+  text-align: end;
+}
+
+.keypad {
+  margin-top: 32px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--keypad-background);
+}
+
+.key-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button {
+  width: 100px;
+  height: 66px;
+  margin: 8px 8px;
+  border: none;
+  border-radius: 16px;
+  color: var(--very-dark-grayish-blue);
+  background: var(--light-grayish-orange);
+  box-shadow: 0px 4px 0 var(--grayish-orange);
+}
+button:active {
+  box-shadow: 0px -2px 0 var(--grayish-orange),
+    0px 2px 0px var(--grayish-orange);
+}
+
+.long-btn {
+  width: 216px;
+  height: 66px;
+}
+
+.key-clear {
+  color: var(--white);
+  background: var(--light-dark-blue);
+  box-shadow: 0px 4px 0 var(--dark-blue);
+}
+.key-clear:active {
+  box-shadow: 0px -2px 0 var(--dark-blue), 0px 2px 0px var(--dark-blue);
+}
+
+.key-result {
+  color: var(--white);
+  background: var(--red);
+  box-shadow: 0px 4px 0 var(--dark-red);
+}
+.key-result:active {
+  box-shadow: 0px -2px 0 var(--dark-red), 0px 2px 0px var(--dark-red);
+}
