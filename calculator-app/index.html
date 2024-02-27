@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Calculator app</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <div>
+      <div class="header">calc</div>
+      <div class="display">
+        <p class="output" id="output">0</p>
+      </div>
+      <div class="keypad">
+        <div class="key-row">
+          <button data-key="7">7</button>
+          <button data-key="8">8</button>
+          <button data-key="9">9</button>
+          <button data-key="Backspace" class="key-clear">DEL</button>
+        </div>
+
+        <div class="key-row">
+          <button data-key="4">4</button>
+          <button data-key="5">5</button>
+          <button data-key="6">6</button>
+          <button data-key="+">+</button>
+        </div>
+
+        <div class="key-row">
+          <button data-key="1">1</button>
+          <button data-key="2">2</button>
+          <button data-key="3">3</button>
+          <button data-key="-">-</button>
+        </div>
+
+        <div class="key-row">
+          <button data-key=".">.</button>
+          <button data-key="0">0</button>
+          <button data-key="/">/</button>
+          <button data-key="*">x</button>
+        </div>
+
+        <div class="key-row">
+          <button data-key="Escape" class="long-btn key-clear">RESET</button>
+          <button data-key="=" class="long-btn key-result">=</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
