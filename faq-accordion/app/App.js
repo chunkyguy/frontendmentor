@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
-  FlatList,
+  ScrollView,
   Image,
   Pressable,
   StyleSheet,
   Text,
   View,
+  Dimensions,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -63,73 +64,77 @@ const R = {
   },
 };
 
-function Cell({ index, title, body }) {
-  const [isOpen, setOpen] = useState(false);
-  const [bodyHeight, setBodyHeight] = useState(0);
-
-  useEffect(() => {
-    setOpen(index === 0);
-  }, []);
-
-  function handlePress() {
-    setOpen((prev) => !prev);
-  }
-
-  function handleLayout(event) {
-    const height = event.nativeEvent.layout.height;
-    if (height > 0 && height !== bodyHeight) {
-      setBodyHeight(height);
-    }
-  }
-
-  const bodyStyle = useAnimatedStyle(() => {
-    const currHeight = isOpen ? withTiming(bodyHeight) : withTiming(0);
-    return { height: currHeight };
+function Cell({ text, isOpen }) {
+  const [maxHeight, setMaxHeight] = useState(0);
+  const cellBodyContainerStyle = useAnimatedStyle(() => {
+    const height = isOpen ? withTiming(maxHeight) : withTiming(0);
+    return { height };
   });
-
   return (
-    <View
-      style={[
-        styles.cell,
-        { borderBottomWidth: index === R.strings.content.length - 1 ? 0 : 1 },
-      ]}
-    >
-      <Pressable style={styles.cellHeader} onPress={handlePress}>
-        <Text style={styles.cellTitle}>{title}</Text>
-        <Image
-          style={styles.cellIcon}
-          source={isOpen ? R.images.iconMinus : R.images.iconPlus}
-        />
-      </Pressable>
-      <Animated.View style={[bodyStyle, { overflow: "hidden" }]}>
-        <View style={{ position: "absolute" }} onLayout={handleLayout}>
-          <Text style={styles.cellBody}>{body}</Text>
-        </View>
-      </Animated.View>
-    </View>
+    <Animated.View style={[cellBodyContainerStyle, { overflow: "hidden" }]}>
+      <View
+        style={{ position: "absolute" }}
+        onLayout={(e) => {
+          if (maxHeight === 0) {
+            setMaxHeight(e.nativeEvent.layout.height);
+          }
+        }}
+      >
+        <Text style={styles.cellBody}>{text}</Text>
+      </View>
+    </Animated.View>
   );
 }
 
 export default function App() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Image
-        style={styles.backgroundImage}
-        source={R.images.background}
-      ></Image>
-      <View style={styles.content}>
-        <View style={styles.contentHeader}>
-          <Image source={R.images.iconStar} />
-          <Text style={styles.contentHeaderTitle}>{R.strings.header}</Text>
-        </View>
-        <FlatList
-          keyExtractor={(item) => item.title}
-          data={R.strings.content}
-          renderItem={({ item, index }) => (
-            <Cell index={index} title={item.title} body={item.body} />
-          )}
-        />
+      <Image style={styles.backgroundImage} source={R.images.background} />
+      <View style={styles.scrollContainer}>
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.contentHeader}>
+            <Image source={R.images.iconStar} />
+            <Text style={styles.contentHeaderTitle}>{R.strings.header}</Text>
+          </View>
+          {R.strings.content.map(({ title, body }, index) => {
+            return (
+              <View
+                key={title}
+                style={[
+                  styles.cell,
+                  {
+                    borderBottomWidth:
+                      index === R.strings.content.length - 1 ? 0 : 1,
+                  },
+                ]}
+              >
+                <Pressable
+                  style={styles.cellHeader}
+                  onPress={() =>
+                    setSelectedIndex((prev) => (prev === index ? null : index))
+                  }
+                >
+                  <Text style={styles.cellTitle}>{title}</Text>
+                  <Image
+                    style={styles.cellIcon}
+                    source={
+                      selectedIndex === index
+                        ? R.images.iconMinus
+                        : R.images.iconPlus
+                    }
+                  />
+                </Pressable>
+                <Cell text={body} isOpen={index === selectedIndex} />
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     </View>
   );
@@ -139,20 +144,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: R.colors.lightPink,
-    justifyContent: "flex-start",
-    alignItems: "center",
   },
   backgroundImage: {
     width: "100%",
     resizeMode: "cover",
   },
-  content: {
-    backgroundColor: R.colors.white,
+  scrollContainer: {
     position: "absolute",
-    top: 150,
-    padding: 32,
-    margin: 16,
+    backgroundColor: R.colors.white,
     borderRadius: 16,
+    width: Dimensions.get("window").width - 32,
+    height: Dimensions.get("window").height - 150,
+    top: 150,
+    left: 16,
+    right: 16,
+    padding: 32,
+  },
+  scrollView: {
+    backgroundColor: "transparent",
   },
   contentHeader: {
     flexDirection: "row",
@@ -173,7 +182,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  cellIcon: {},
   cellTitle: {
     fontSize: 20,
     fontFamily: R.fonts.semibold.name,
