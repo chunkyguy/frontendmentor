@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+:root {
+  --clr-Purple-100: hsl(254, 88%, 90%);
+  --clr-Purple-500: hsl(256, 67%, 59%);
+
+  --clr-Yellow-100: hsl(31, 66%, 93%);
+  --clr-Yellow-500: hsl(39, 100%, 71%);
+
+  --clr-White-100: hsl(0, 0%, 100%);
+  --clr-White-200: hsl(0, 18%, 93%);
+  --clr-White-900: hsl(0, 0%, 7%);
+
+  --fsz-h1: 3rem;
+  --fsz-h2: 1.8rem;
+  --fsz-h3: 1.2rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 18px;
+  font-family: "DM Sans", serif;
+  line-height: 1;
+  background-color: var(--clr-White-200);
+  color: var(--clr-White-900);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.content {
+  padding: 2rem 1rem;
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "five-stars"
+    "multiple-platforms"
+    "consistent-schedule"
+    "schedule-posts"
+    "grow-followers"
+    "audience-growth"
+    "create-post"
+    "ai-content";
+}
+@media (width > 480px) {
+  .content {
+    width: 80vw;
+    margin: auto;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "create-post five-stars five-stars schedule-posts"
+      "create-post multiple-platforms consistent-schedule schedule-posts"
+      "ai-content multiple-platforms consistent-schedule schedule-posts"
+      "ai-content audience-growth grow-followers grow-followers";
+  }
+}
+
+.card-five-stars {
+  grid-area: five-stars;
+
+  border-radius: 1rem;
+  text-align: center;
+
+  padding: 3rem 4rem;
+  background-color: var(--clr-Purple-500);
+  color: var(--clr-White-100);
+
+  .title {
+    font-size: var(--fsz-h1);
+  }
+
+  .bold {
+    color: var(--clr-Yellow-500);
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .stars {
+    padding-top: 1rem;
+  }
+
+  .footer {
+    padding-top: 0.5rem;
+  }
+}
+
+.card-multiple-platforms {
+  grid-area: multiple-platforms;
+
+  border-radius: 1rem;
+  text-align: left;
+  padding: 2rem 1.2rem;
+  background-color: var(--clr-White-100);
+
+  .title {
+    padding-top: 1rem;
+    font-size: var(--fsz-h2);
+  }
+}
+
+.card-consistent-schedule {
+  grid-area: consistent-schedule;
+
+  border-radius: 1rem;
+  text-align: left;
+  padding: 0rem 1.2rem;
+  background-color: var(--clr-Yellow-500);
+
+  .title {
+    padding-top: 1rem;
+    font-size: var(--fsz-h2);
+  }
+
+  .image {
+    padding-top: 1rem;
+    width: 75%;
+  }
+}
+
+.card-schedule-posts {
+  grid-area: schedule-posts;
+
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0rem 1.2rem;
+  background-color: var(--clr-Purple-100);
+
+  .title {
+    padding: 2rem 0;
+    font-size: var(--fsz-h2);
+  }
+
+  .footer {
+    padding: 2rem 0;
+    font-size: var(--fsz-h3);
+  }
+}
+
+.card-grow-followers {
+  grid-area: grow-followers;
+
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0rem 1.2rem;
+  background-color: var(--clr-Purple-500);
+  color: var(--clr-White-100);
+
+  .image {
+    margin: auto;
+    padding: 2rem;
+    width: 75%;
+  }
+
+  .title {
+    font-size: var(--fsz-h2);
+    line-height: 1;
+    padding: 0rem 4rem 2rem;
+  }
+}
+@media (width > 480px) {
+  .card-grow-followers {
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    .image {
+      flex: 1;
+      width: 50%;
+    }
+
+    .title {
+      flex: 1;
+    }
+  }
+}
+
+.card-audience-growth {
+  grid-area: audience-growth;
+
+  border-radius: 1rem;
+  text-align: left;
+  padding: 0rem 1.2rem;
+  background-color: var(--clr-White-100);
+  color: var(--clr-White-900);
+
+  .title {
+    font-size: var(--fsz-h1);
+    margin: 1rem;
+  }
+
+  .footer {
+    font-size: var(--fsz-h3);
+    margin: 1rem;
+  }
+
+  .image {
+    width: 50%;
+    margin: 1rem 1rem;
+  }
+}
+
+.card-create-post {
+  grid-area: create-post;
+
+  border-radius: 1rem;
+  text-align: left;
+  padding: 2rem 1.2rem;
+  background-color: var(--clr-Yellow-100);
+  color: var(--clr-White-900);
+
+  .title {
+    font-size: var(--fsz-h2);
+    margin: 1rem;
+  }
+
+  .italic {
+    font-style: italic;
+    color: var(--clr-Purple-500);
+  }
+
+  .image {
+    width: 50%;
+    margin: 2rem 1rem 0;
+  }
+}
+
+.card-ai-content {
+  grid-area: ai-content;
+
+  border-radius: 1rem;
+  text-align: left;
+  padding: 2rem 1.2rem;
+  background-color: var(--clr-Yellow-500);
+  color: var(--clr-White-900);
+
+  .title {
+    font-size: var(--fsz-h2);
+    margin: 1rem;
+  }
+
+  .image {
+    width: 75%;
+    margin: 2rem 1rem 0;
+  }
+}
